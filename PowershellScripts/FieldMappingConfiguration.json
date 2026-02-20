@@ -1,0 +1,581 @@
+﻿{
+"Version": "1.0",
+"DefaultAdoProject": "Acute Meds Management",
+"AreaPathMappings": {
+  "EMIS | Emerson": "Acute Meds Management\\Emerson\\Rally Migration",
+  "EMIS": "Acute Meds Management\\Emerson\\Rally Migration",
+  "Emerson": "Acute Meds Management\\Emerson\\Rally Migration"
+},
+"WorkItemTypeMappings": [
+    {
+      "RallyWorkItemType": "Task",
+      "AdoWorkItemType": "Task",
+      "FieldMappings": [
+        {
+          "RallyFieldName": "FormattedID",
+          "AdoFieldReference": "System.Title",
+          "CustomTransformation": "RALLY_ID_FORMAT",
+          "RallyRequired": true
+        },
+        {
+          "RallyFieldName": "Description",
+          "AdoFieldReference": "System.Description",
+          "CustomTransformation": "DIRECT",
+          "RallyRequired": false
+        },
+        {
+          "RallyFieldName": "State",
+          "AdoFieldReference": "System.State",
+          "CustomTransformation": "STATE_MAPPING",
+          "RallyRequired": true,
+          "Skip": true,
+          "MappingNotes": "SKIPPED: Cannot set State during work item creation - ADO automatically sets to 'To Do'. Update State after creation if needed."
+        },
+        {
+          "RallyFieldName": "Owner",
+          "AdoFieldReference": "System.AssignedTo",
+          "CustomTransformation": "USER_LOOKUP",
+          "RallyRequired": false
+        },
+        {
+          "RallyFieldName": "Priority",
+          "AdoFieldReference": "Microsoft.VSTS.Common.Priority",
+          "CustomTransformation": "ENUM_MAPPING",
+          "RallyRequired": false
+        },
+        {
+          "RallyFieldName": "Severity",
+          "AdoFieldReference": "Microsoft.VSTS.Common.Severity",
+          "CustomTransformation": "ENUM_MAPPING",
+          "RallyRequired": false
+        },
+        {
+          "RallyFieldName": "PlanEstimate",
+          "AdoFieldReference": "Microsoft.VSTS.Scheduling.StoryPoints",
+          "CustomTransformation": "DIRECT",
+          "RallyRequired": false,
+          "MappingNotes": "Maps Rally Plan Estimate (hours) to ADO Story Points for Tasks"
+        },
+        {
+          "RallyFieldName": "Project",
+          "AdoFieldReference": "System.AreaPath",
+          "CustomTransformation": "PROJECT_TO_AREA",`n          "DefaultValue": "Acute Meds Management\\Emerson\\Rally Migration",
+          "RallyRequired": true
+        },
+        {
+          "RallyFieldName": "IterationPath",
+          "AdoFieldReference": "System.IterationPath",
+          "CustomTransformation": "CONSTANT",
+          "DefaultValue": "Acute Meds Management\\Emerson\\Rally Migration",
+          "RallyRequired": false,
+          "MappingNotes": "Hardcoded iteration path for all Tasks"
+        },
+        {
+          "RallyFieldName": "Tags",
+          "AdoFieldReference": "System.Tags",
+          "CustomTransformation": "COLLECTION_TO_STRING",
+          "RallyRequired": false
+        },
+        {
+          "RallyFieldName": "CreationDate",
+          "AdoFieldReference": "System.CreatedDate",
+          "CustomTransformation": "DATE_FORMAT",
+          "RallyRequired": true,
+          "Skip": true,
+          "MappingNotes": "SKIPPED: Cannot set CreatedDate during work item creation - ADO sets this automatically."
+        },
+        {
+          "RallyFieldName": "LastUpdateDate",
+          "AdoFieldReference": "System.ChangedDate",
+          "CustomTransformation": "DATE_FORMAT",
+          "RallyRequired": true,
+          "Skip": true,
+          "MappingNotes": "SKIPPED: Cannot set ChangedDate during work item creation - ADO sets this automatically."
+        },
+        {
+          "RallyFieldName": "Estimate",
+          "AdoFieldReference": "Microsoft.VSTS.Scheduling.OriginalEstimate",
+          "CustomTransformation": "DIRECT"
+        },
+        {
+          "RallyFieldName": "ToDo",
+          "AdoFieldReference": "Microsoft.VSTS.Scheduling.RemainingWork",
+          "CustomTransformation": "DIRECT"
+        },
+        {
+          "RallyFieldName": "Actuals",
+          "AdoFieldReference": "Microsoft.VSTS.Scheduling.CompletedWork",
+          "CustomTransformation": "DIRECT"
+        }
+      ]
+    },
+    {
+      "RallyWorkItemType": "Defect",
+      "AdoWorkItemType": "Bug",
+      "FieldMappings": [
+        {
+          "RallyFieldName": "FormattedID",
+          "AdoFieldReference": "System.Title",
+          "CustomTransformation": "RALLY_ID_FORMAT",
+          "RallyRequired": true
+        },
+        {
+          "RallyFieldName": "Description",
+          "AdoFieldReference": "System.Description",
+          "CustomTransformation": "DIRECT",
+          "RallyRequired": false
+        },
+        {
+          "RallyFieldName": "AcceptanceCriteria",
+          "AdoFieldReference": "Microsoft.VSTS.Common.AcceptanceCriteria",
+          "CustomTransformation": "DIRECT",
+          "RallyRequired": false,
+          "MappingNotes": "Maps Rally Acceptance Criteria to ADO Acceptance Criteria field (also included in Description)"
+        },
+        {
+          "RallyFieldName": "State",
+          "AdoFieldReference": "System.State",
+          "CustomTransformation": "STATE_MAPPING",
+          "RallyRequired": true,
+          "Skip": true,
+          "MappingNotes": "SKIPPED: Cannot set State during work item creation - ADO automatically sets to 'New'. Update State after creation if needed."
+        },
+        {
+          "RallyFieldName": "Owner",
+          "AdoFieldReference": "System.AssignedTo",
+          "CustomTransformation": "USER_LOOKUP",
+          "RallyRequired": false
+        },
+        {
+          "RallyFieldName": "Priority",
+          "AdoFieldReference": "Microsoft.VSTS.Common.Priority",
+          "CustomTransformation": "ENUM_MAPPING",
+          "RallyRequired": false
+        },
+        {
+          "RallyFieldName": "Severity",
+          "AdoFieldReference": "Microsoft.VSTS.Common.Severity",
+          "CustomTransformation": "ENUM_MAPPING",
+          "RallyRequired": false
+        },
+        {
+          "RallyFieldName": "PlanEstimate",
+          "AdoFieldReference": "Microsoft.VSTS.Scheduling.StoryPoints",
+          "CustomTransformation": "DIRECT",
+          "RallyRequired": false,
+          "MappingNotes": "Maps Rally Plan Estimate to ADO Story Points"
+        },
+        {
+          "RallyFieldName": "Project",
+          "AdoFieldReference": "System.AreaPath",
+          "CustomTransformation": "PROJECT_TO_AREA",`n          "DefaultValue": "Acute Meds Management\\Emerson\\Rally Migration",
+          "RallyRequired": true
+        },
+        {
+          "RallyFieldName": "IterationPath",
+          "AdoFieldReference": "System.IterationPath",
+          "CustomTransformation": "CONSTANT",
+          "DefaultValue": "Acute Meds Management\\Emerson\\Rally Migration",
+          "RallyRequired": false,
+          "MappingNotes": "Hardcoded iteration path for all Defects"
+        },
+        {
+          "RallyFieldName": "Tags",
+          "AdoFieldReference": "System.Tags",
+          "CustomTransformation": "COLLECTION_TO_STRING",
+          "RallyRequired": false
+        },
+        {
+          "RallyFieldName": "Resolution",
+          "AdoFieldReference": "Microsoft.VSTS.Common.Resolution",
+          "CustomTransformation": "DIRECT",
+          "RallyRequired": false
+        },
+        {
+          "RallyFieldName": "CreationDate",
+          "AdoFieldReference": "System.CreatedDate",
+          "CustomTransformation": "DATE_FORMAT",
+          "RallyRequired": true,
+          "Skip": true,
+          "MappingNotes": "SKIPPED: Cannot set CreatedDate during work item creation - ADO automatically sets this automatically."
+        },
+        {
+          "RallyFieldName": "LastUpdateDate",
+          "AdoFieldReference": "System.ChangedDate",
+          "CustomTransformation": "DATE_FORMAT",
+          "RallyRequired": true,
+          "Skip": true,
+          "MappingNotes": "SKIPPED: Cannot set ChangedDate during work item creation - ADO sets this automatically."
+        },
+        {
+          "RallyFieldName": "CreatedBy",
+          "AdoFieldReference": "System.CreatedBy",
+          "CustomTransformation": "USER_LOOKUP",
+          "RallyRequired": true,
+          "Skip": true,
+          "MappingNotes": "SKIPPED: Cannot set CreatedBy during work item creation - ADO sets this based on PAT user."
+        },
+        {
+          "RallyFieldName": "c_FoundInBuild",
+          "AdoFieldReference": "Microsoft.VSTS.Build.FoundIn",
+          "CustomTransformation": "DIRECT",
+          "RallyRequired": false
+        },
+        {
+          "RallyFieldName": "c_IntegratedInBuild",
+          "AdoFieldReference": "Microsoft.VSTS.Build.IntegrationBuild",
+          "CustomTransformation": "DIRECT",
+          "RallyRequired": false
+        },
+        {
+          "RallyFieldName": "Environment",
+          "AdoFieldReference": "Microsoft.VSTS.TCM.SystemInfo",
+          "CustomTransformation": "DIRECT",
+          "RallyRequired": false
+        }
+      ]
+    },
+    {
+      "RallyWorkItemType": "HierarchicalRequirement",
+      "AdoWorkItemType": "User Story",
+      "FieldMappings": [
+        {
+          "RallyFieldName": "FormattedID",
+          "AdoFieldReference": "System.Title",
+          "CustomTransformation": "RALLY_ID_FORMAT",
+          "RallyRequired": true
+        },
+        {
+          "RallyFieldName": "Description",
+          "AdoFieldReference": "System.Description",
+          "CustomTransformation": "DIRECT",
+          "RallyRequired": false
+        },
+        {
+          "RallyFieldName": "AcceptanceCriteria",
+          "AdoFieldReference": "Microsoft.VSTS.Common.AcceptanceCriteria",
+          "CustomTransformation": "DIRECT",
+          "RallyRequired": false,
+          "MappingNotes": "Maps Rally Acceptance Criteria to ADO Acceptance Criteria"
+        },
+        {
+          "RallyFieldName": "State",
+          "AdoFieldReference": "System.State",
+          "CustomTransformation": "STATE_MAPPING",
+          "RallyRequired": true,
+          "Skip": true,
+          "MappingNotes": "SKIPPED: Cannot set State during work item creation - ADO automatically sets to 'New'. Update State after creation if needed."
+        },
+        {
+          "RallyFieldName": "Owner",
+          "AdoFieldReference": "System.AssignedTo",
+          "CustomTransformation": "USER_LOOKUP",
+          "RallyRequired": false
+        },
+        {
+          "RallyFieldName": "Priority",
+          "AdoFieldReference": "Microsoft.VSTS.Common.Priority",
+          "CustomTransformation": "ENUM_MAPPING",
+          "RallyRequired": false
+        },
+        {
+          "RallyFieldName": "PlanEstimate",
+          "AdoFieldReference": "Microsoft.VSTS.Scheduling.StoryPoints",
+          "CustomTransformation": "DIRECT",
+          "RallyRequired": false,
+          "MappingNotes": "Maps Rally Plan Estimate to ADO Story Points"
+        },
+        {
+          "RallyFieldName": "Project",
+          "AdoFieldReference": "System.AreaPath",
+          "CustomTransformation": "PROJECT_TO_AREA",`n          "DefaultValue": "Acute Meds Management\\Emerson\\Rally Migration",
+          "RallyRequired": true
+        },
+        {
+          "RallyFieldName": "IterationPath",
+          "AdoFieldReference": "System.IterationPath",
+          "CustomTransformation": "CONSTANT",
+          "DefaultValue": "Acute Meds Management\\Emerson\\Rally Migration",
+          "RallyRequired": false,
+          "MappingNotes": "Hardcoded iteration path for all User Stories"
+        },
+        {
+          "RallyFieldName": "Tags",
+          "AdoFieldReference": "System.Tags",
+          "CustomTransformation": "COLLECTION_TO_STRING",
+          "RallyRequired": false
+        },
+        {
+          "RallyFieldName": "CreationDate",
+          "AdoFieldReference": "System.CreatedDate",
+          "CustomTransformation": "DATE_FORMAT",
+          "RallyRequired": true,
+          "Skip": true,
+          "MappingNotes": "SKIPPED: Cannot set CreatedDate during work item creation - ADO sets this automatically."
+        },
+        {
+          "RallyFieldName": "LastUpdateDate",
+          "AdoFieldReference": "System.ChangedDate",
+          "CustomTransformation": "DATE_FORMAT",
+          "RallyRequired": true,
+          "Skip": true,
+          "MappingNotes": "SKIPPED: Cannot set ChangedDate during work item creation - ADO sets this automatically."
+        }
+      ]
+    },
+    {
+      "RallyWorkItemType": "PortfolioItem/Epic",
+      "AdoWorkItemType": "Epic",
+      "FieldMappings": [
+        {
+          "RallyFieldName": "FormattedID",
+          "AdoFieldReference": "System.Title",
+          "CustomTransformation": "RALLY_ID_FORMAT",
+          "RallyRequired": true
+        },
+        {
+          "RallyFieldName": "Description",
+          "AdoFieldReference": "System.Description",
+          "CustomTransformation": "DIRECT",
+          "RallyRequired": false
+        },
+        {
+          "RallyFieldName": "State",
+          "AdoFieldReference": "System.State",
+          "CustomTransformation": "STATE_MAPPING",
+          "RallyRequired": true,
+          "Skip": true,
+          "MappingNotes": "SKIPPED: Cannot set State during work item creation - ADO automatically sets to 'New'. Update State after creation if needed."
+        },
+        {
+          "RallyFieldName": "Owner",
+          "AdoFieldReference": "System.AssignedTo",
+          "CustomTransformation": "USER_LOOKUP",
+          "RallyRequired": false
+        },
+        {
+          "RallyFieldName": "Priority",
+          "AdoFieldReference": "Microsoft.VSTS.Common.Priority",
+          "CustomTransformation": "ENUM_MAPPING",
+          "RallyRequired": false
+        },
+        {
+          "RallyFieldName": "Project",
+          "AdoFieldReference": "System.AreaPath",
+          "CustomTransformation": "PROJECT_TO_AREA",`n          "DefaultValue": "Acute Meds Management\\Emerson\\Rally Migration",
+          "RallyRequired": true
+        },
+        {
+          "RallyFieldName": "IterationPath",
+          "AdoFieldReference": "System.IterationPath",
+          "CustomTransformation": "CONSTANT",
+          "DefaultValue": "Acute Meds Management\\Emerson\\Rally Migration",
+          "RallyRequired": false,
+          "MappingNotes": "Hardcoded iteration path for all Epics"
+        },
+        {
+          "RallyFieldName": "Tags",
+          "AdoFieldReference": "System.Tags",
+          "CustomTransformation": "COLLECTION_TO_STRING",
+          "RallyRequired": false
+        },
+        {
+          "RallyFieldName": "Category",
+          "AdoFieldReference": "Custom.Category",
+          "CustomTransformation": "CONSTANT",
+          "DefaultValue": "Epic",
+          "RallyRequired": false,
+          "MappingNotes": "Required custom field for Epics - set to 'Epic'"
+        },
+        {
+          "RallyFieldName": "ValueStream",
+          "AdoFieldReference": "Custom.ValueStream",
+          "CustomTransformation": "CONSTANT",
+          "DefaultValue": "Clinical - Medicines Management",
+          "RallyRequired": false,
+          "MappingNotes": "Required custom field for Epics - set to 'Clinical - Medicines Management'"
+        },
+        {
+          "RallyFieldName": "CreationDate",
+          "AdoFieldReference": "System.CreatedDate",
+          "CustomTransformation": "DATE_FORMAT",
+          "RallyRequired": true,
+          "Skip": true,
+          "MappingNotes": "SKIPPED: Cannot set CreatedDate during work item creation - ADO sets this automatically."
+        },
+        {
+          "RallyFieldName": "LastUpdateDate",
+          "AdoFieldReference": "System.ChangedDate",
+          "CustomTransformation": "DATE_FORMAT",
+          "RallyRequired": true,
+          "Skip": true,
+          "MappingNotes": "SKIPPED: Cannot set ChangedDate during work item creation - ADO sets this automatically."
+        }
+      ]
+    },
+    {
+      "RallyWorkItemType": "PortfolioItem/Feature",
+      "AdoWorkItemType": "Feature",
+      "FieldMappings": [
+        {
+          "RallyFieldName": "FormattedID",
+          "AdoFieldReference": "System.Title",
+          "CustomTransformation": "RALLY_ID_FORMAT",
+          "RallyRequired": true
+        },
+        {
+          "RallyFieldName": "Description",
+          "AdoFieldReference": "System.Description",
+          "CustomTransformation": "DIRECT",
+          "RallyRequired": false
+        },
+        {
+          "RallyFieldName": "State",
+          "AdoFieldReference": "System.State",
+          "CustomTransformation": "STATE_MAPPING",
+          "RallyRequired": true,
+          "Skip": true,
+          "MappingNotes": "SKIPPED: Cannot set State during work item creation - ADO automatically sets to 'New'. Update State after creation if needed."
+        },
+        {
+          "RallyFieldName": "Owner",
+          "AdoFieldReference": "System.AssignedTo",
+          "CustomTransformation": "USER_LOOKUP",
+          "RallyRequired": false
+        },
+        {
+          "RallyFieldName": "Priority",
+          "AdoFieldReference": "Microsoft.VSTS.Common.Priority",
+          "CustomTransformation": "ENUM_MAPPING",
+          "RallyRequired": false
+        },
+        {
+          "RallyFieldName": "Project",
+          "AdoFieldReference": "System.AreaPath",
+          "CustomTransformation": "PROJECT_TO_AREA",`n          "DefaultValue": "Acute Meds Management\\Emerson\\Rally Migration",
+          "RallyRequired": true
+        },
+        {
+          "RallyFieldName": "IterationPath",
+          "AdoFieldReference": "System.IterationPath",
+          "CustomTransformation": "CONSTANT",
+          "DefaultValue": "Acute Meds Management\\Emerson\\Rally Migration",
+          "RallyRequired": false,
+          "MappingNotes": "Hardcoded iteration path for all Features"
+        },
+        {
+          "RallyFieldName": "Tags",
+          "AdoFieldReference": "System.Tags",
+          "CustomTransformation": "COLLECTION_TO_STRING",
+          "RallyRequired": false
+        },
+        {
+          "RallyFieldName": "Category",
+          "AdoFieldReference": "Custom.Category",
+          "CustomTransformation": "CONSTANT",
+          "DefaultValue": "Feature",
+          "RallyRequired": false,
+          "MappingNotes": "Required custom field for Features - set to 'Feature'"
+        },
+        {
+          "RallyFieldName": "ValueStream",
+          "AdoFieldReference": "Custom.ValueStream",
+          "CustomTransformation": "CONSTANT",
+          "DefaultValue": "Clinical - Medicines Management",
+          "RallyRequired": false,
+          "MappingNotes": "Required custom field for Features - set to 'Clinical - Medicines Management'"
+        },
+        {
+          "RallyFieldName": "CreationDate",
+          "AdoFieldReference": "System.CreatedDate",
+          "CustomTransformation": "DATE_FORMAT",
+          "RallyRequired": true,
+          "Skip": true,
+          "MappingNotes": "SKIPPED: Cannot set CreatedDate during work item creation - ADO sets this automatically."
+        },
+        {
+          "RallyFieldName": "LastUpdateDate",
+          "AdoFieldReference": "System.ChangedDate",
+          "CustomTransformation": "DATE_FORMAT",
+          "RallyRequired": true,
+          "Skip": true,
+          "MappingNotes": "SKIPPED: Cannot set ChangedDate during work item creation - ADO sets this automatically."
+        }
+      ]
+    },
+    {
+      "RallyWorkItemType": "TestCase",
+      "AdoWorkItemType": "Test Case",
+      "FieldMappings": [
+        {
+          "RallyFieldName": "FormattedID",
+          "AdoFieldReference": "System.Title",
+          "CustomTransformation": "RALLY_ID_FORMAT",
+          "RallyRequired": true
+        },
+        {
+          "RallyFieldName": "Description",
+          "AdoFieldReference": "System.Description",
+          "CustomTransformation": "DIRECT",
+          "RallyRequired": false
+        },
+        {
+          "RallyFieldName": "State",
+          "AdoFieldReference": "System.State",
+          "CustomTransformation": "STATE_MAPPING",
+          "RallyRequired": true,
+          "Skip": true,
+          "MappingNotes": "SKIPPED: Cannot set State during work item creation - ADO automatically sets to 'Design'."
+        },
+        {
+          "RallyFieldName": "Owner",
+          "AdoFieldReference": "System.AssignedTo",
+          "CustomTransformation": "USER_LOOKUP",
+          "RallyRequired": false
+        },
+        {
+          "RallyFieldName": "Priority",
+          "AdoFieldReference": "Microsoft.VSTS.Common.Priority",
+          "CustomTransformation": "ENUM_MAPPING",
+          "RallyRequired": false
+        },
+        {
+          "RallyFieldName": "Project",
+          "AdoFieldReference": "System.AreaPath",
+          "CustomTransformation": "PROJECT_TO_AREA",`n          "DefaultValue": "Acute Meds Management\\Emerson\\Rally Migration",
+          "RallyRequired": true
+        },
+        {
+          "RallyFieldName": "IterationPath",
+          "AdoFieldReference": "System.IterationPath",
+          "CustomTransformation": "CONSTANT",
+          "DefaultValue": "Acute Meds Management\\Emerson\\Rally Migration",
+          "RallyRequired": false,
+          "MappingNotes": "Hardcoded iteration path for all Test Cases"
+        },
+        {
+          "RallyFieldName": "Tags",
+          "AdoFieldReference": "System.Tags",
+          "CustomTransformation": "COLLECTION_TO_STRING",
+          "RallyRequired": false
+        },
+        {
+          "RallyFieldName": "CreationDate",
+          "AdoFieldReference": "System.CreatedDate",
+          "CustomTransformation": "DATE_FORMAT",
+          "RallyRequired": true,
+          "Skip": true,
+          "MappingNotes": "SKIPPED: Cannot set CreatedDate during work item creation - ADO sets this automatically."
+        },
+        {
+          "RallyFieldName": "LastUpdateDate",
+          "AdoFieldReference": "System.ChangedDate",
+          "CustomTransformation": "DATE_FORMAT",
+          "RallyRequired": true,
+          "Skip": true,
+          "MappingNotes": "SKIPPED: Cannot set ChangedDate during work item creation - ADO sets this automatically."
+        }
+      ]
+    }
+  ]
+}
